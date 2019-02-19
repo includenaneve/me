@@ -82,6 +82,18 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  aliasCustoms: {
+    '@': resolveApp('src'),
+    '@components': resolveApp('src/components'),
+    '@pwa': resolveApp('src/pwa'),
+    '@router': resolveApp('src/router'),
+    '@utils': resolveApp('src/utils'),
+    '@common': resolveApp('src/common'),
+    '@styles': resolveApp('src/styles'),
+    '@images': resolveApp('src/images'),
+    '@media': resolveApp('src/media'),
+    '@pages': resolveApp('src/pages'),
+  }
 };
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
