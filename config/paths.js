@@ -93,6 +93,7 @@ module.exports = {
     '@images': resolveApp('src/images'),
     '@media': resolveApp('src/media'),
     '@pages': resolveApp('src/pages'),
+    '@constants': resolveApp('src/constants'),
   }
 };
 

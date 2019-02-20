@@ -1,0 +1,42 @@
+.article-edit-wrapper {
+  background-image: url('~@images/home.png');
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-size: 100%;
+  font-size: 16px;
+  padding: 15px;
+  .input {
+    width: 100%;
+    font-size: 18px;
+    background: none;
+    color: #fff;
+    &::placeholder {
+      color: #999;
+    }
+    &:focus {
+      background: rgba(255,255,255, 0.5);
+      outline: none;
+      color: #333;
+    }
+  }
+  .textarea {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 18px;
+    background: none;
+    color: #fff;
+    height: auto;
+    min-height: 300px;
+    &::placeholder {
+      color: #999;
+    }
+    &:focus {
+      background: rgba(255,255,255, 0.5);
+      outline: none;
+      color: #333;
+    }
+  }
+}
