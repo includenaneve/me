@@ -94,6 +94,7 @@ module.exports = {
     '@media': resolveApp('src/media'),
     '@pages': resolveApp('src/pages'),
     '@constants': resolveApp('src/constants'),
+    '@api': resolveApp('src/api'),
   }
 };
 

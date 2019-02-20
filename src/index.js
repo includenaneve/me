@@ -6,7 +6,7 @@ import * as serviceWorker from '@pwa/serviceWorker';
 import './index.css'
 
 ReactDOM.render(
-  <BrowserRouter basename="/" forceRefresh>
+  <BrowserRouter basename="/">
     <Root/>
   </BrowserRouter>,
   document.getElementById('root')
