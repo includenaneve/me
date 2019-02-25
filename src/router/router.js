@@ -9,6 +9,7 @@ class Root extends React.Component {
   render() {
     return (
       <Switch>
+        <Route exact path='/' component={HomePage}/>
         <Route path='/home' component={HomePage}/>
         <Route path='/edit' component={EditPage}/>
         <Route component={DefaultPage}/>
