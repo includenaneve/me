@@ -1,6 +1,6 @@
 import axios from 'axios'
-let API = {}
-const domain = 'http://101.132.158.2:9777'
+const API = {}
+const domain = 'http://liujiajian.top:9777'
 
 API.gm = async(url) => {
   const { status, data } = await axios.get(domain + url);
@@ -14,8 +14,8 @@ API.gm = async(url) => {
 }
 
 API.pm = async(url, obj) => {
-  let params = new URLSearchParams();
-  for(let key in obj) {
+  const params = new URLSearchParams();
+  for(const key in obj) {
     params.append(key, obj[key]);
   }
   const { status, data } = await axios.post(domain + url, params);
