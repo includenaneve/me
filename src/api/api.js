@@ -36,4 +36,8 @@ API.editArticle = (obj) => {
   return API.pm('/edit', obj)
 }
 
+API.getUptoken = () => {
+  return API.gm('/uptoken')
+}
+
 export default API
