@@ -1,0 +1,44 @@
+.media-father-day {
+  position: relative;
+  background: #000;
+  .stage-pic {
+    width: 100%;
+    mask: url('~@images/mediaFatherDay/mask.png');
+    mask-repeat: no-repeat;
+    animation-name: maskMove;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-duration: 2s;
+    @keyframes maskMove {
+      from {
+        mask-size: 0 0;
+        mask-position: 50% 30%;
+        background: #000;
+      }
+      to {
+        mask-position: 50% 30%;
+        mask-size: 90vw 90vw;
+        background: #000;
+      }
+    }
+  }
+  // .mask {
+  //   position: absolute;
+  //   background: #000;
+  //   width: 100vw;
+  //   height: 100vh;
+  //   top: 0;
+  //   .circle {
+  //     position: absolute;
+  //     top: 50%;
+  //     left: 50%;
+  //     margin-left: -25vw;
+  //     margin-top: -25vw;
+  //     width: 50vw;
+  //     height: 50vw;
+  //     background: rgba(255,255,255,0.1);
+  //     position: absolute;
+  //   }
+  // }
+}
