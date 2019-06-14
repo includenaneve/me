@@ -1,16 +1,25 @@
 import React from 'react'
-import { observable, action, computed, reaction } from 'mobx'
+import { observable, action, computed, when } from 'mobx'
 import { observer } from 'mobx-react'
 import { stages } from './constants'
 import API from '@api/api'
 import { default as mask } from '@images/mediaFatherDay/mask.svg'
 import { resourcePreloading } from '@utils/utils'
+import { default as scan1 } from '@images/mediaFatherDay/scan1.jpg'
+import { default as scan2 } from '@images/mediaFatherDay/scan2.jpg'
+import { default as scan3 } from '@images/mediaFatherDay/scan3.jpg'
+import { default as scan4 } from '@images/mediaFatherDay/scan4.jpg'
 
 import './style.less'
 @observer
 class MediaFatherDay extends React.Component {
   @observable loading = true
   @observable stageIndex = ''
+  @observable animationName = ''
+
+  @action setAnimationName = name => {
+    this.animationName = name
+  }
 
   @computed get textCls() {
     return 'text' + this.stageIndex
@@ -80,9 +89,26 @@ class MediaFatherDay extends React.Component {
       this.resetMaskAnimation()
       this.setStageIndex(0)
     }
+    when(() => this.stageIndex === 6, async() => {
+      await this.timeout(2000)
+      document.getElementById('text').style.display = 'none'
+      this.setAnimationName('scan1')
+      await this.timeout(2000)
+      this.setAnimationName('scan3')
+      await this.timeout(2000)
+      this.setAnimationName('scan4')
+    })
   }
 
-  handleTouchStart = (event) => {
+  timeout = (time) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve()
+      }, time)
+    })
+  }
+
+  handleTouchStart = async(event) => {
     // 检测屏幕滑动事件
     document.getElementById('all').addEventListener('touchmove', e => {
       // 获取场景图片节点(7张图)
@@ -98,7 +124,6 @@ class MediaFatherDay extends React.Component {
       const currentStageTop = stagePics[this.stageIndex].getBoundingClientRect().top
       // 计算圆形区域距离顶部的百分比（做视差滚动）
       const IntPercent = Math.floor((0.5 - Math.abs(currentStageTop) / 750) * 100)
-      console.log(IntPercent)
       if (IntPercent <= -12) {
         this.setStageIndex(this.stageIndex + 1)
         document.getElementById('mask').style.top = '50%'
@@ -133,7 +158,10 @@ class MediaFatherDay extends React.Component {
           onClick={this.stop}>
           Loading...</div>
         }
-        <div className={this.textCls}>{this.text}</div>
+        <div id="text" className={this.textCls}>{this.text}</div>
+        <img className={this.animationName === 'scan1' ? this.animationName : 'none'} src={scan1} alt=""/>
+        <img className={this.animationName === 'scan3' ? this.animationName : 'none'} src={scan3} alt=""/>
+        <img className={this.animationName === 'scan4' ? this.animationName : 'none'} src={scan4} alt=""/>
       </div>
     )
   }
