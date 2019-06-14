@@ -83,29 +83,31 @@ class MediaFatherDay extends React.Component {
   }
 
   handleTouchStart = (event) => {
+    // 检测屏幕滑动事件
     document.getElementById('all').addEventListener('touchmove', e => {
+      // 获取场景图片节点(7张图)
       const stagePics = document.getElementsByClassName('stage-pic')
+      // 转化成数组。遍历。达到切换条件的时候记录当前图片索引。
       Object.values(stagePics).forEach((stage, index) => {
         const top = stagePics[this.stageIndex].getBoundingClientRect().top
         if (top <= -750) {
           this.setStageIndex(index)
         }
       })
-      // const currentStageTop = Object.values(stagePics)[this.stageIndex || 0].getBoundingClientRect().top
-      // // document.getElementById('mask').style.marginTop = document.getElementById('mask').style.marginTop + currentStageTop + 'vw'
-      // const IntPercent = Math.floor((0.5 - Math.abs(currentStageTop) / window.screen.height) * 100)
-      // const offsetPrecent = IntPercent + '%'
-      // const percent = IntPercent + '%'
-      // if (IntPercent < -13) {
-      //   document.getElementById('mask').style.top = percent
-      // } else {
-      //   document.getElementById('mask').className = 'mask-pic'
-      //   document.getElementById('mask').style.animationPlayState = 'running'
-      //   setTimeout(() => {
-      //     document.getElementById('mask').className = 'fixed-mask-pic'
-      //   }, 2000)
-      // }
-      // console.log(offsetPrecent, percent)
+      // 记录当前图片的偏移量
+      const currentStageTop = stagePics[this.stageIndex].getBoundingClientRect().top
+      // 计算圆形区域距离顶部的百分比（做视差滚动）
+      const IntPercent = Math.floor((0.5 - Math.abs(currentStageTop) / 750) * 100)
+      console.log(IntPercent)
+      if (IntPercent <= -12) {
+        this.setStageIndex(this.stageIndex + 1)
+        document.getElementById('mask').style.top = '50%'
+        stagePics[this.stageIndex].scrollIntoView()
+        this.resetMaskAnimation()
+      } else {
+        const percent = IntPercent + '%'
+        document.getElementById('mask').style.top = percent
+      }
     })
   }
 
