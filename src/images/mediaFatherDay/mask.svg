@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="3000px" height="3000px" viewBox="0 0 3000 3000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Combined Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,0 L3000,0 L3000,3000 L0,3000 L0,0 Z M1500,1525 C1513.80712,1525 1525,1513.80712 1525,1500 C1525,1486.19288 1513.80712,1475 1500,1475 C1486.19288,1475 1475,1486.19288 1475,1500 C1475,1513.80712 1486.19288,1525 1500,1525 Z" id="Combined-Shape" fill="#000000"></path>
+    </g>
+</svg>

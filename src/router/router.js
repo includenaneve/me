@@ -7,12 +7,13 @@ import EditPage from '@pages/EditPage/EditPage'
 import AuthRoute from './AuthRoute/AuthRoute'
 import LoginPage from '@pages/LoginPage/LoginPage'
 import PicsPage from '@pages/PicsPage/PicsPage'
+import MediaFatherDay from '@pages/mediaFatherDay/mediaFatherDay'
 
 class Root extends React.Component {
   render() {
     return (
       <Switch>
-        <Route exact path='/' component={HomePage}/>
+        <Route exact path='/' component={MediaFatherDay}/>
         <Route path='/home' component={HomePage}/>
         <Route path='/login' component={LoginPage}/>
         <Route path='/pics' component={PicsPage}/>

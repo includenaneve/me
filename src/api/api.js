@@ -40,4 +40,8 @@ API.getUptoken = () => {
   return API.gm('/uptoken')
 }
 
+API.getSign = () => {
+  return API.gm('/Sign')
+}
+
 export default API
