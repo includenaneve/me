@@ -7,8 +7,9 @@ import { default as mask } from '@images/mediaFatherDay/mask.svg'
 import { resourcePreloading } from '@utils/utils'
 
 import './style.less'
-
+@observer
 class MediaFatherDay extends React.Component {
+  @observable loading = true
   componentDidMount = async() => {
     const res = await resourcePreloading(stages)
     if (res) {
