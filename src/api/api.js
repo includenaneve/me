@@ -1,6 +1,6 @@
 import axios from 'axios'
 const API = {}
-const domain = 'http://liujiajian.top:9777'
+const domain = 'http://remote.liujiajian.top:9777'
 
 API.gm = async(url) => {
   const { status, data } = await axios.get(domain + url);
@@ -41,7 +41,7 @@ API.getUptoken = () => {
 }
 
 API.getSign = () => {
-  return API.gm('/Sign')
+  return API.gm('/sign')
 }
 
 export default API

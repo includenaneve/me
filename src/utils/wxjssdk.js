@@ -3,10 +3,9 @@ import API from '@api/api'
 const wxjssdk = {}
 wxjssdk.config = async() => {
   const res = await API.getSign()
-  console.log(res)
   wx.config({
     debug: false,
-    appId: 'wx91933abf3c5b792d',
+    appId: 'wxfb9fae43122c60a9',
     timestamp: res.timestamp,
     nonceStr: res.nonceStr,
     signature: res.signature,

@@ -5,8 +5,10 @@ import { stages, all } from './constants'
 import API from '@api/api'
 import { default as mask } from '@images/mediaFatherDay/mask.svg'
 import { resourcePreloading } from '@utils/utils'
+import wxjssdk from '@utils/wxjssdk'
 import * as pics from '@images/mediaFatherDay/stages'
 import { default as music } from '@images/mediaFatherDay/music.mp3'
+import ReactAudioPlayer from 'react-audio-player'
 
 import './style.less'
 @observer
@@ -81,16 +83,37 @@ class MediaFatherDay extends React.Component {
   }
 
   componentDidMount = async() => {
+    API.getSign()
+    wxjssdk.config()
+    const wxTool = wxjssdk
+    // eslint-disable-next-line
+    wx.ready(() => {
+      wxTool.share(window.location.origin,
+        '父亲节活动',
+        'Happy Father Day!',
+        'http://qiniu.liujiajian.top/302.jpg',
+        () => {
+          console.log('father')
+        })
+    })
     const res = await resourcePreloading(all)
-    const audio = document.getElementById('music')
-    audio.play()
     if (res) {
       this.setLoading(false)
       this.resetMaskAnimation()
       this.setStageIndex(0)
     }
+    const timer = setInterval(() => {
+      const stagePics = document.getElementsByClassName('stage-pic')
+      Object.values(stagePics).forEach((stage, index) => {
+        const top = stagePics[this.stageIndex].getBoundingClientRect().top
+        if (top <= -750) {
+          this.setStageIndex(index)
+        }
+      })
+    }, 200)
     document.getElementById('animation1').className = 'animation1'
     when(() => this.stageIndex === 6, async() => {
+      clearInterval(timer)
       document.getElementById('animation1').className = 'displayNone'
       document.getElementById('animation2').className = 'animation2'
       await this.timeout(2000)
@@ -98,7 +121,7 @@ class MediaFatherDay extends React.Component {
       await this.timeout(2000)
       document.getElementById('a21').className='animation2-1Disappear'
       document.getElementById('a22').className='animation2-2'
-      await this.timeout(1000)
+      await this.timeout(2000)
       document.getElementById('a22').className='animation2-2Disappear'
       document.getElementById('a23').className='animation2-3'
       await this.timeout(1000)
@@ -128,6 +151,7 @@ class MediaFatherDay extends React.Component {
   }
 
   handleTouchStart = async(event) => {
+    document.getElementById('music').play()
     // 检测屏幕滑动事件
     document.getElementById('all').addEventListener('touchmove', e => {
       // 获取场景图片节点(7张图)
@@ -163,7 +187,7 @@ class MediaFatherDay extends React.Component {
   render() {
     return (
       <div id="all" className="media-father-day" onTouchStart={this.handleTouchStart}>
-        <audio loop src={music} id="music" autoPlay preload="auto"></audio>
+        <audio src={music} id="music" autoPlay />
         {
           this.loading && <div className="loading"
           onTouchStart={this.stop}
