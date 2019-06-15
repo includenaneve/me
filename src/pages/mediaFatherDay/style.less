@@ -1,6 +1,23 @@
+html, body {
+  background: #000;
+}
 .media-father-day {
   position: relative;
   background: #000;
+  .displayNone {
+    display: none
+  }
+  .animation2, .animation1 {
+    display: block;
+    background: #000;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
   .stage-pic {
     width: 100%;
   }
@@ -281,5 +298,373 @@
     top: 0;
     left: 0;
     opacity: 0;
+    display: block;
+  }
+  .fixed-pic {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: block;
+  }
+  .animation2-1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    animation-name: a21;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 103;
+    animation-timing-function: ease-out;
+    @keyframes a21 {
+      from {
+        height: 400vh;
+        opacity: 0;
+      }
+      30% {
+        opacity: 1;
+        height: 400vh;
+      }
+      to {
+        opacity: 1;
+        height: 107vh;
+      }
+    }
+  }
+  .animation2-1Disappear {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    animation-name: a21Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 105;
+    @keyframes a21Disappear {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  .animation2-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    animation-name: a22;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 105;
+    @keyframes a22 {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .animation2-2Disappear {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    animation-name: a22Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 105;
+    @keyframes a22Disappear {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  .animation2-3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    animation-name: a23;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 106;
+    @keyframes a23 {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .animation2-3Disappear {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    animation-name: a22Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 105;
+    @keyframes a22Disappear {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        width: 4vw;
+        left: 46vw;
+        top: 25vw;
+      }
+    }
+  }
+  .animation2-4 {
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a24;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 107;
+    @keyframes a24 {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .animation2-4Disappear {
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a24Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 107;
+    @keyframes a24Disappear {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        width: 60vw;
+        left: 20vw;
+        top: 30vw;
+      }
+    }
+  }
+  .animation2-5 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a25;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 105;
+    @keyframes a25 {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .animation2-5Disappear {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a25Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 105;
+    @keyframes a25Disappear {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .mask2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1000vw;
+    margin-top: -514vw;
+    margin-left: -500vw;
+    animation-name: maskScan2;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    z-index: 110;
+    @keyframes maskScan2 {
+      from {
+        width: 1000vw;
+        margin-top: -514vw;
+        margin-left: -500vw;
+      }
+      to {
+        width: 5800vw;
+        margin-top: -2925vw;
+        margin-left: -2900vw;
+      }
+    }
+  }
+  .mask2Disappear {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1000vw;
+    margin-top: -514vw;
+    margin-left: -500vw;
+    animation-name: maskScan2Disappear;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    z-index: 110;
+    @keyframes maskScan2Disappear {
+      from {
+        width: 5800vw;
+        margin-top: -2925vw;
+        margin-left: -2900vw;
+        opacity: 1;
+      }
+      to {
+        width: 5800vw;
+        margin-top: -2925vw;
+        margin-left: -2900vw;
+        opacity: 0;
+      }
+    }
+  }
+  .animation2-6 {
+    position: fixed;
+    top: -30vw;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a26;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 111;
+    @keyframes a26 {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .animation2-6Disappear {
+    position: fixed;
+    top: -30vw;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a26Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 111;
+    @keyframes a26Disappear {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  .animation2-7 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a27;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    @keyframes a27 {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  .animation2-7Disappear {
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 106;
+    animation-name: a27Disappear;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    @keyframes a27Disappear {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  .animation2-none {
+    width: 100vw;
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+  }
+  .a27-pic {
+    width: 100%;
   }
 }

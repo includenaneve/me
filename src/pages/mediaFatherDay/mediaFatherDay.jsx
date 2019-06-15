@@ -1,14 +1,12 @@
 import React from 'react'
 import { observable, action, computed, when } from 'mobx'
 import { observer } from 'mobx-react'
-import { stages } from './constants'
+import { stages, all } from './constants'
 import API from '@api/api'
 import { default as mask } from '@images/mediaFatherDay/mask.svg'
 import { resourcePreloading } from '@utils/utils'
-import { default as scan1 } from '@images/mediaFatherDay/scan1.jpg'
-import { default as scan2 } from '@images/mediaFatherDay/scan2.jpg'
-import { default as scan3 } from '@images/mediaFatherDay/scan3.jpg'
-import { default as scan4 } from '@images/mediaFatherDay/scan4.jpg'
+import * as pics from '@images/mediaFatherDay/stages'
+import { default as music } from '@images/mediaFatherDay/music.mp3'
 
 import './style.less'
 @observer
@@ -83,20 +81,41 @@ class MediaFatherDay extends React.Component {
   }
 
   componentDidMount = async() => {
-    const res = await resourcePreloading(stages)
+    const res = await resourcePreloading(all)
+    const audio = document.getElementById('music')
+    audio.play()
     if (res) {
       this.setLoading(false)
       this.resetMaskAnimation()
       this.setStageIndex(0)
     }
+    document.getElementById('animation1').className = 'animation1'
     when(() => this.stageIndex === 6, async() => {
+      document.getElementById('animation1').className = 'displayNone'
+      document.getElementById('animation2').className = 'animation2'
       await this.timeout(2000)
-      document.getElementById('text').style.display = 'none'
-      this.setAnimationName('scan1')
+      document.getElementById('a21').className='animation2-1'
       await this.timeout(2000)
-      this.setAnimationName('scan3')
+      document.getElementById('a21').className='animation2-1Disappear'
+      document.getElementById('a22').className='animation2-2'
+      await this.timeout(1000)
+      document.getElementById('a22').className='animation2-2Disappear'
+      document.getElementById('a23').className='animation2-3'
+      await this.timeout(1000)
+      document.getElementById('a23').className='animation2-3Disappear'
+      document.getElementById('a24').className='animation2-4'
       await this.timeout(2000)
-      this.setAnimationName('scan4')
+      document.getElementById('a24').className='animation2-4Disappear'
+      document.getElementById('a25').className='animation2-5'
+      await this.timeout(2000)
+      document.getElementById('mask2').className='mask2'
+      await this.timeout(2000)
+      document.getElementById('a26').className='animation2-6'
+      await this.timeout(2000)
+      // document.getElementById('a25').className='animation2-5Disappear'
+      // document.getElementById('mask2').className='mask2Disappear'
+      // document.getElementById('a26').className='animation2-6Disappear'
+      document.getElementById('a27').className='animation2-7'
     })
   }
 
@@ -144,12 +163,7 @@ class MediaFatherDay extends React.Component {
   render() {
     return (
       <div id="all" className="media-father-day" onTouchStart={this.handleTouchStart}>
-        {
-          stages.map(item => {
-            return <img key={item} className="stage-pic" src={item} alt=""/>
-          })
-        }
-        <img id="mask" src={mask} alt=""/>
+        <audio loop src={music} id="music" autoPlay preload="auto"></audio>
         {
           this.loading && <div className="loading"
           onTouchStart={this.stop}
@@ -158,10 +172,27 @@ class MediaFatherDay extends React.Component {
           onClick={this.stop}>
           Loading...</div>
         }
-        <div id="text" className={this.textCls}>{this.text}</div>
-        <img className={this.animationName === 'scan1' ? this.animationName : 'none'} src={scan1} alt=""/>
-        <img className={this.animationName === 'scan3' ? this.animationName : 'none'} src={scan3} alt=""/>
-        <img className={this.animationName === 'scan4' ? this.animationName : 'none'} src={scan4} alt=""/>
+        <div id="animation1">
+          {
+            stages.map(item => {
+              return <img key={item} className="stage-pic" src={item} alt=""/>
+            })
+          }
+          <img id="mask" src={mask} alt=""/>
+          <div id="text" className={this.textCls}>{this.text}</div>
+        </div>
+        <div id="animation2">
+          <img id="a21" className="animation2-none" src={pics.scan2} alt=""/>
+          <img id="a22" className="animation2-none" src={pics.scan3} alt=""/>
+          <img id="a23" className="animation2-none" src={pics.scan4} alt=""/>
+          <img id="a24" className="animation2-none" src={pics.air} alt=""/>
+          <img id="a25" className="animation2-none" src={pics.father} alt=""/>
+          <img id="mask2" className="animation2-none" id="mask2" src={mask} alt=""/>
+          <img id="a26" className="animation2-none" src={pics.fatherText} alt=""/>
+          <div id="a27" className="animation2-none">
+            <img className="a27-pic" src={pics.media} alt=""/>
+          </div>
+        </div>
       </div>
     )
   }
