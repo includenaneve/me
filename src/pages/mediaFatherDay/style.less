@@ -45,6 +45,54 @@ html, body {
       }
     }
   }
+  .mask-pic1 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1000vw;
+    margin-top: -514vw;
+    margin-left: -500vw;
+    animation-name: maskScan1;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    @keyframes maskScan1 {
+      from {
+        width: 1000vw;
+        margin-top: -514vw;
+        margin-left: -500vw;
+      }
+      to {
+        width: 5800vw;
+        margin-top: -2925vw;
+        margin-left: -2900vw;
+      }
+    }
+  }
+  .mask-pic2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 1000vw;
+    margin-top: -514vw;
+    margin-left: -500vw;
+    animation-name: maskScan2;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    @keyframes maskScan2 {
+      from {
+        width: 1000vw;
+        margin-top: -514vw;
+        margin-left: -500vw;
+      }
+      to {
+        width: 5800vw;
+        margin-top: -2925vw;
+        margin-left: -2900vw;
+      }
+    }
+  }
   .fixed-mask-pic {
     position: fixed;
     top: 50%;
@@ -666,5 +714,122 @@ html, body {
   }
   .a27-pic {
     width: 100%;
+  }
+  .many {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    animation-name: many;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    @keyframes many {
+      from {
+        width: 2000vw;
+        height: 2000vw;
+        margin-left: -1000vw;
+        margin-top: -1000vw;
+      }
+      to {
+        width: 100vh;
+        height: 100vh;
+        margin-left: -50vh;
+        margin-top: -50vh;
+        top: 50vh;
+        left: 50vh;
+      }
+    }
+  }
+  .manyNone {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    animation-name: manyNone;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    width: 100vh;
+    height: 100vh;
+    margin-left: -50vh;
+    margin-top: -50vh;
+    top: 50vh;
+    left: 50vh;
+    @keyframes manyNone {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  .air {
+    position: fixed;
+    z-index: 101;
+    animation-name: air;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @keyframes air {
+      from {
+        width: 2800vw;
+        top: -127%;
+        left: 50%;
+        margin-top: -500vw;
+        margin-left: -1400vw;
+        opacity: 0;
+      }
+      to {
+        width: 55vw;
+        top: 32vw;
+        left: 22vw;
+        margin: 0;
+      }
+    }
+  }
+  .airNone {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    animation-name: airNone;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55vw;
+    top: 32vw;
+    left: 22vw;
+    margin: 0;
+    @keyframes airNone {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  }
+  .father {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
   }
 }
