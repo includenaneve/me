@@ -25,25 +25,25 @@ html, body {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 1000vw;
-    margin-top: -514vw;
-    margin-left: -500vw;
-    animation-name: maskScan;
-    animation-duration: 2s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    @keyframes maskScan {
-      from {
-        width: 1000vw;
-        margin-top: -514vw;
-        margin-left: -500vw;
-      }
-      to {
-        width: 5800vw;
-        margin-top: -2925vw;
-        margin-left: -2900vw;
-      }
-    }
+    width: 5800vw;
+    margin-top: -2925vw;
+    margin-left: -2900vw;
+    // animation-name: maskScan;
+    // animation-duration: 2s;
+    // animation-iteration-count: 1;
+    // animation-fill-mode: forwards;
+    // @keyframes maskScan {
+    //   from {
+    //     width: 1000vw;
+    //     margin-top: -514vw;
+    //     margin-left: -500vw;
+    //   }
+    //   to {
+    //     width: 5800vw;
+    //     margin-top: -2925vw;
+    //     margin-left: -2900vw;
+    //   }
+    // }
   }
   .mask-pic1 {
     position: fixed;
@@ -120,11 +120,11 @@ html, body {
   .text0 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
     opacity: 0;
@@ -140,11 +140,11 @@ html, body {
   .text1 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear1;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
      opacity: 0;
@@ -160,11 +160,11 @@ html, body {
   .text2 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear2;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
      opacity: 0;
@@ -180,11 +180,11 @@ html, body {
   .text3 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear3;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
      opacity: 0;
@@ -200,11 +200,11 @@ html, body {
   .text4 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear4;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
      opacity: 0;
@@ -220,11 +220,11 @@ html, body {
   .text5 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear5;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
      opacity: 0;
@@ -240,11 +240,11 @@ html, body {
   .text6 {
     position: fixed;
     width: 100%;
-    top: 120vw;
+    top: 125vw;
     color: #fff;
     text-align: center;
     animation-name: textAppear6;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
      opacity: 0;
@@ -260,7 +260,7 @@ html, body {
   .grey {
     color: #999;
     font-size: 12px;
-    margin-top: 20px;
+    padding-top: 10px;
     width: 80%;
     margin: 0 auto;
   }
@@ -777,10 +777,10 @@ html, body {
     position: fixed;
     z-index: 101;
     animation-name: air;
-    animation-duration: 2s;
+    animation-duration: 1s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
-    z-index: 100;
+    z-index: 103;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -794,10 +794,16 @@ html, body {
         opacity: 0;
       }
       to {
-        width: 55vw;
-        top: 32vw;
-        left: 22vw;
-        margin: 0;
+        // width: 55vw;
+        // top: 32vw;
+        // left: 22vw;
+        // margin: 0;
+        width: 2800vw;
+        top: -127%;
+        left: 50%;
+        margin-top: -500vw;
+        margin-left: -1400vw;
+        opacity: 1;
       }
     }
   }
@@ -809,27 +815,50 @@ html, body {
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
     animation-iteration-count: 1;
-    z-index: 100;
+    z-index: 102;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 55vw;
-    top: 32vw;
-    left: 22vw;
-    margin: 0;
     @keyframes airNone {
       from {
+        width: 2800vw;
+        top: -100vw;
+        left: 50%;
+        margin-top: -500vw;
+        margin-left: -1400vw;
         opacity: 1;
       }
       to {
+        width: 800vw;
+        top: -171vw;
+        left: 50%;
+        margin-left: -400vw;
         opacity: 0;
       }
     }
   }
   .father {
     position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
+    animation-name: father;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @keyframes father {
+      from {
+        width: 800vw;
+        top: -300vw;
+        left: 50%;
+        margin-left: -400vw;
+      }
+      to {
+        width: 100vw;
+        top: 0;
+        left: 0;
+      }
+    }
   }
 }

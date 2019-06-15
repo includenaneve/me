@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { stages, all } from './constants'
 import API from '@api/api'
 import { default as mask } from '@images/mediaFatherDay/mask.svg'
-import { resourcePreloading } from '@utils/utils'
+// import { resourcePreloading } from '@utils/utils'
 import wxjssdk from '@utils/wxjssdk'
 import * as pics from '@images/mediaFatherDay/stages'
 import { default as music } from '@images/mediaFatherDay/music.mp3'
@@ -17,6 +17,10 @@ class MediaFatherDay extends React.Component {
   @observable stageIndex = ''
   @observable animationName = ''
   @observable circleMoveSpeed = 0
+  @observable loadingPercent = 0;
+  @action setLoadingPercent = num => {
+    this.loadingPercent = num
+  }
   @action setCircleMoveSpeed = (precent) => {
     this.circleMoveSpeed + precent
   }
@@ -99,7 +103,7 @@ class MediaFatherDay extends React.Component {
     if (this.stageIndex) {
       stagePics[this.stageIndex].scrollIntoView()
       document.getElementById('mask').className = 'mask-pic'
-      this.timeout(2000)
+      await this.timeout(3000)
       document.getElementById('mask').className = 'fixed-mask-pic'
     }
   }
@@ -107,9 +111,9 @@ class MediaFatherDay extends React.Component {
   circleMove = async() => {
     document.getElementById('mask').style.top = '50%'
     const timer = setInterval(() => {
-      document.getElementById('mask').style.top = parseInt(document.getElementById('mask').style.top.substring(0,2)) - 2 + '%'
+      document.getElementById('mask').style.top = parseInt(document.getElementById('mask').style.top.substring(0,2)) - 1 + '%'
     }, 10)
-    await this.timeout(300)
+    await this.timeout(700)
     clearInterval(timer)
     const stagePics = document.getElementsByClassName('stage-pic')
     if (this.stageIndex < 6) {
@@ -127,12 +131,44 @@ class MediaFatherDay extends React.Component {
     this.circleMove()
   }
 
+  resourcePreloading = loadpics => {
+    const funs = loadpics.map(item => {
+      const pic = new Image()
+      pic.src = item
+      return new Promise((resolve, reject) => {
+        if (pic.complete || pic.readyState === 4) {
+          resolve(0)
+        } else {
+          pic.onload = () => {
+            resolve(1)
+          }
+        }
+      })
+    })
+    return new Promise((resolve, reject) => {
+      Promise.all(funs).then((res) => {
+        resolve(true)
+      })
+    })
+  }
+
   componentDidMount = async() => {
     this.wxShareConfig()
-    const res = await resourcePreloading(all)
+    let loadingPercentTimer = setInterval(() => {
+      this.setLoadingPercent(this.loadingPercent + 1)
+    }, 300)
+    const res = await this.resourcePreloading(all)
     if (res) {
-      this.setLoading(false)
-      this.animation1AutoPlay(0)
+      loadingPercentTimer = setInterval(() => {
+        const precent = this.loadingPercent + 1 >= 100 ? 100 : this.loadingPercent + 1
+        this.setLoadingPercent(precent)
+      }, 1)
+      when(() => this.loadingPercent === 100, () => {
+        clearInterval(loadingPercentTimer)
+        this.setLoadingPercent(100)
+        this.setLoading(false)
+        this.animation1AutoPlay(0)
+      })
     }
     document.getElementById('animation2').className='displayNone'
     when(() => this.stageIndex === 6, async() => {
@@ -142,7 +178,7 @@ class MediaFatherDay extends React.Component {
       await this.timeout(1900)
       document.getElementById('many').className='manyNone'
       document.getElementById('air').className='air'
-      await this.timeout(2000)
+      await this.timeout(1000)
       document.getElementById('air').className='airNone'
       document.getElementById('father').className='father'
       document.getElementById('mask2').className='mask2'
@@ -186,7 +222,11 @@ class MediaFatherDay extends React.Component {
           onTouchMove={this.stop}
           onTouchEnd={this.stop}
           onClick={this.stop}>
-          Loading...</div>
+          <div>
+            <div>{this.loadingPercent}%</div>
+            <div>Loading...</div>
+          </div>
+          </div>
         }
         <div id="animation1" onTouchStart={this.handleTouchStart}>
           {
@@ -200,7 +240,7 @@ class MediaFatherDay extends React.Component {
         <div id="animation2" onTouchStart={this.handleTouchStart}>
           <img id="many" className="animation2-none" src={pics.many} alt=""/>
           <img id="air" className="animation2-none" src={pics.air} alt=""/>
-          <img id="father" className="father" src={pics.father} alt=""/>
+          <img id="father" className="animation2-none" src={pics.father} alt=""/>
           <img id="mask2" className="animation2-none" id="mask2" src={mask} alt=""/>
           <img id="a26" className="animation2-none" src={pics.fatherText} alt=""/>
           <div id="a27" className="animation2-none">
