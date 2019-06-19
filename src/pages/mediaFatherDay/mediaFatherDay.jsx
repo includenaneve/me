@@ -1,10 +1,10 @@
 import React from 'react'
-import { observable, action, computed, when } from 'mobx'
+import { observable, action, computed, when, reaction } from 'mobx'
 import { observer } from 'mobx-react'
 import { stages, all } from './constants'
 import API from '@api/api'
 import { default as mask } from '@images/mediaFatherDay/mask.svg'
-import { resourcePreloading } from '@utils/utils'
+// import { resourcePreloading } from '@utils/utils'
 import wxjssdk from '@utils/wxjssdk'
 import * as pics from '@images/mediaFatherDay/stages'
 import { default as music } from '@images/mediaFatherDay/music.mp3'
@@ -16,6 +16,14 @@ class MediaFatherDay extends React.Component {
   @observable loading = true
   @observable stageIndex = ''
   @observable animationName = ''
+  @observable circleMoveSpeed = 0
+  @observable loadingPercent = 0;
+  @action setLoadingPercent = num => {
+    this.loadingPercent = num
+  }
+  @action setCircleMoveSpeed = (precent) => {
+    this.circleMoveSpeed + precent
+  }
 
   @action setAnimationName = name => {
     this.animationName = name
@@ -75,69 +83,108 @@ class MediaFatherDay extends React.Component {
     this.loading = bool
   }
 
-  resetMaskAnimation = () => {
-    document.getElementById('mask').className = 'mask-pic'
-    setTimeout(() => {
-      document.getElementById('mask').className = 'fixed-mask-pic'
-    }, 2000)
-  }
-
-  componentDidMount = async() => {
-    API.getSign()
+  wxShareConfig = () => {
     wxjssdk.config()
     const wxTool = wxjssdk
     // eslint-disable-next-line
     wx.ready(() => {
       wxTool.share(window.location.origin,
-        '父亲节活动',
-        'Happy Father Day!',
-        'http://qiniu.liujiajian.top/302.jpg',
+        '有一种爱，不会被风吹散',
+        '每一份爱，都值得被温柔以待',
+        'http://qiniu.liujiajian.top/share.jpg',
         () => {
           console.log('father')
-        })
+      })
     })
-    const res = await resourcePreloading(all)
-    if (res) {
-      this.setLoading(false)
-      this.resetMaskAnimation()
-      this.setStageIndex(0)
+  }
+
+  resetMaskAnimation = async() => {
+    const stagePics = document.getElementsByClassName('stage-pic')
+    if (this.stageIndex) {
+      stagePics[this.stageIndex].scrollIntoView()
+      document.getElementById('mask').className = 'mask-pic'
+      await this.timeout(3000)
+      document.getElementById('mask').className = 'fixed-mask-pic'
     }
+  }
+
+  circleMove = async() => {
+    document.getElementById('mask').style.top = '50%'
     const timer = setInterval(() => {
-      const stagePics = document.getElementsByClassName('stage-pic')
-      Object.values(stagePics).forEach((stage, index) => {
-        const top = stagePics[this.stageIndex].getBoundingClientRect().top
-        if (top <= -750) {
-          this.setStageIndex(index)
+      document.getElementById('mask').style.top = parseInt(document.getElementById('mask').style.top.substring(0,2)) - 1 + '%'
+    }, 10)
+    await this.timeout(700)
+    clearInterval(timer)
+    const stagePics = document.getElementsByClassName('stage-pic')
+    if (this.stageIndex < 6) {
+      stagePics[this.stageIndex + 1].scrollIntoView()
+      document.getElementById('mask').style.top = '50%'
+      this.animation1AutoPlay(this.stageIndex + 1)
+    }
+  }
+
+  animation1AutoPlay = async(index) => {
+    document.getElementById('mask').className = 'mask-pic'
+    this.setStageIndex(index)
+    await this.timeout(2000)
+    document.getElementById('mask').className = 'fixed-mask-pic'
+    this.circleMove()
+  }
+
+  resourcePreloading = loadpics => {
+    const funs = loadpics.map(item => {
+      const pic = new Image()
+      pic.src = item
+      return new Promise((resolve, reject) => {
+        if (pic.complete || pic.readyState === 4) {
+          resolve(0)
+        } else {
+          pic.onload = () => {
+            resolve(1)
+          }
         }
       })
-    }, 200)
-    document.getElementById('animation1').className = 'animation1'
+    })
+    return new Promise((resolve, reject) => {
+      Promise.all(funs).then((res) => {
+        resolve(true)
+      })
+    })
+  }
+
+  componentDidMount = async() => {
+    this.wxShareConfig()
+    let loadingPercentTimer = setInterval(() => {
+      this.setLoadingPercent(this.loadingPercent + 1)
+    }, 300)
+    const res = await this.resourcePreloading(all)
+    if (res) {
+      loadingPercentTimer = setInterval(() => {
+        const precent = this.loadingPercent + 1 >= 100 ? 100 : this.loadingPercent + 1
+        this.setLoadingPercent(precent)
+      }, 1)
+      when(() => this.loadingPercent === 100, () => {
+        clearInterval(loadingPercentTimer)
+        this.setLoadingPercent(100)
+        this.setLoading(false)
+        this.animation1AutoPlay(0)
+      })
+    }
+    document.getElementById('animation2').className='displayNone'
     when(() => this.stageIndex === 6, async() => {
-      clearInterval(timer)
-      document.getElementById('animation1').className = 'displayNone'
-      document.getElementById('animation2').className = 'animation2'
-      await this.timeout(2000)
-      document.getElementById('a21').className='animation2-1'
-      await this.timeout(2000)
-      document.getElementById('a21').className='animation2-1Disappear'
-      document.getElementById('a22').className='animation2-2'
-      await this.timeout(2000)
-      document.getElementById('a22').className='animation2-2Disappear'
-      document.getElementById('a23').className='animation2-3'
+      document.getElementById('animation1').className='displayNone'
+      document.getElementById('animation2').className='animation2'
+      document.getElementById('many').className='many'
+      await this.timeout(1900)
+      document.getElementById('many').className='manyNone'
+      document.getElementById('air').className='air'
       await this.timeout(1000)
-      document.getElementById('a23').className='animation2-3Disappear'
-      document.getElementById('a24').className='animation2-4'
-      await this.timeout(2000)
-      document.getElementById('a24').className='animation2-4Disappear'
-      document.getElementById('a25').className='animation2-5'
-      await this.timeout(2000)
+      document.getElementById('air').className='airNone'
+      document.getElementById('father').className='father'
       document.getElementById('mask2').className='mask2'
       await this.timeout(2000)
       document.getElementById('a26').className='animation2-6'
       await this.timeout(2000)
-      // document.getElementById('a25').className='animation2-5Disappear'
-      // document.getElementById('mask2').className='mask2Disappear'
-      // document.getElementById('a26').className='animation2-6Disappear'
       document.getElementById('a27').className='animation2-7'
     })
   }
@@ -152,30 +199,11 @@ class MediaFatherDay extends React.Component {
 
   handleTouchStart = async(event) => {
     document.getElementById('music').play()
-    // 检测屏幕滑动事件
+    event.preventDefault()
+    event.stopPropagation()
     document.getElementById('all').addEventListener('touchmove', e => {
-      // 获取场景图片节点(7张图)
-      const stagePics = document.getElementsByClassName('stage-pic')
-      // 转化成数组。遍历。达到切换条件的时候记录当前图片索引。
-      Object.values(stagePics).forEach((stage, index) => {
-        const top = stagePics[this.stageIndex].getBoundingClientRect().top
-        if (top <= -750) {
-          this.setStageIndex(index)
-        }
-      })
-      // 记录当前图片的偏移量
-      const currentStageTop = stagePics[this.stageIndex].getBoundingClientRect().top
-      // 计算圆形区域距离顶部的百分比（做视差滚动）
-      const IntPercent = Math.floor((0.5 - Math.abs(currentStageTop) / 750) * 100)
-      if (IntPercent <= -12) {
-        this.setStageIndex(this.stageIndex + 1)
-        document.getElementById('mask').style.top = '50%'
-        stagePics[this.stageIndex].scrollIntoView()
-        this.resetMaskAnimation()
-      } else {
-        const percent = IntPercent + '%'
-        document.getElementById('mask').style.top = percent
-      }
+      e.preventDefault()
+      e.stopPropagation()
     })
   }
 
@@ -194,23 +222,25 @@ class MediaFatherDay extends React.Component {
           onTouchMove={this.stop}
           onTouchEnd={this.stop}
           onClick={this.stop}>
-          Loading...</div>
+          <div>
+            <div>{this.loadingPercent}%</div>
+            <div>Loading...</div>
+          </div>
+          </div>
         }
-        <div id="animation1">
+        <div id="animation1" onTouchStart={this.handleTouchStart}>
           {
             stages.map(item => {
-              return <img key={item} className="stage-pic" src={item} alt=""/>
+              return <img key={item} className="stage-pic" src={item} alt="" onTouchStart={this.handleTouchStart}/>
             })
           }
           <img id="mask" src={mask} alt=""/>
           <div id="text" className={this.textCls}>{this.text}</div>
         </div>
-        <div id="animation2">
-          <img id="a21" className="animation2-none" src={pics.scan2} alt=""/>
-          <img id="a22" className="animation2-none" src={pics.scan3} alt=""/>
-          <img id="a23" className="animation2-none" src={pics.scan4} alt=""/>
-          <img id="a24" className="animation2-none" src={pics.air} alt=""/>
-          <img id="a25" className="animation2-none" src={pics.father} alt=""/>
+        <div id="animation2" onTouchStart={this.handleTouchStart}>
+          <img id="many" className="animation2-none" src={pics.many} alt=""/>
+          <img id="air" className="animation2-none" src={pics.air} alt=""/>
+          <img id="father" className="animation2-none" src={pics.father} alt=""/>
           <img id="mask2" className="animation2-none" id="mask2" src={mask} alt=""/>
           <img id="a26" className="animation2-none" src={pics.fatherText} alt=""/>
           <div id="a27" className="animation2-none">
